@@ -58,7 +58,7 @@ TEST_F(LoggerTest, DefaultLevel)
   cudf::default_logger().warn("warn");
   cudf::default_logger().error("error");
   cudf::default_logger().critical("critical");
-  ASSERT_EQ(this->sink_content(), "warn\nerror\ncritical\n");
+  ASSERT_EQ(this->sink_content(), "info\nwarn\nerror\ncritical\n");
 }
 
 TEST_F(LoggerTest, CustomLevel)
