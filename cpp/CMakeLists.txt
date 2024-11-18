@@ -272,14 +272,9 @@ CPMAddPackage(
   NAME rapids_logger GITHUB_REPOSITORY vyasr/rmm GIT_SHALLOW TRUE SOURCE_SUBDIR rapids_logger
   GIT_TAG feat/logger
 )
-option(LOGGING_COMPATIBILITY "Enable backwards compatible direct access to the spdlog logger" OFF)
-set(_logging_compat)
-if(LOGGING_COMPATIBILITY)
-  set(_logging_compat "CUDF_BACKWARDS_COMPATIBILITY")
-endif()
 rapids_make_logger(
   cudf VISIBILITY_MACRO "__attribute__((visibility(\"default\")))" EXPORT_SET cudf-exports
-  SUPPORTS_LOGGING ${_logging_compat}
+  SUPPORTS_LOGGING
 )
 
 # find jitify
@@ -928,8 +923,7 @@ add_dependencies(cudf jitify_preprocess_run)
 # Specify the target module library dependencies
 target_link_libraries(
   cudf
-  PUBLIC CCCL::CCCL rmm::rmm rmm::rmm_logger $<BUILD_LOCAL_INTERFACE:BS::thread_pool>
-         cudf_logger
+  PUBLIC CCCL::CCCL rmm::rmm rmm::rmm_logger $<BUILD_LOCAL_INTERFACE:BS::thread_pool> cudf_logger
   PRIVATE $<BUILD_LOCAL_INTERFACE:nvtx3::nvtx3-cpp>
           cuco::cuco
           ZLIB::ZLIB
