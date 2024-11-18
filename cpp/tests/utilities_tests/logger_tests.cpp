@@ -33,11 +33,13 @@ class LoggerTest : public cudf::test::BaseFixture {
       new_sink{std::make_shared<spdlog::sinks::ostream_sink_mt>(oss)}
   {
     cudf::default_logger().add_sink(new_sink);
+    cudf::default_logger().set_pattern("%v");
   }
   ~LoggerTest() override
   {
     cudf::default_logger().set_level(prev_level);
     cudf::default_logger().remove_sink(new_sink);
+    cudf::default_logger().set_pattern("[%6t][%H:%M:%S:%f][%-6l] %v");
   }
 
   void clear_sink() { oss.str(""); }
