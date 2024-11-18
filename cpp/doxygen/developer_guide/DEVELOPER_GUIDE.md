@@ -1081,15 +1081,15 @@ Available levels are `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`, `CRITICAL`, and 
 initialization. If this setting is higher than the compile-time CMake variable, any logging levels
 in between the two settings will be excluded from the written log. The available levels are the same
 as for the CMake variable.
-* Global logger object exposed via `cudf::logger()` - sets the minimum logging level at runtime.
-For example, calling `cudf::logger().set_level(spdlog::level::err)`, will exclude any messages that
+* Global logger object exposed via `cudf::default_logger()` - sets the minimum logging level at runtime.
+For example, calling `cudf::default_logger().set_level(cudf::level_enum::err)`, will exclude any messages that
 are not errors or critical errors. This API should not be used within libcudf to manipulate logging,
 its purpose is to allow upstream users to configure libcudf logging to fit their application.
 
 By default, logging messages are output to stderr.
 Setting the environment variable `LIBCUDF_DEBUG_LOG_FILE` redirects the log to a file with the
 specified path (can be relative to the current directory).
-Upstream users can also manipulate `cudf::logger().sinks()` to add sinks or divert the log to
+Upstream users can also manipulate `cudf::default_logger()` to add sinks or divert the log to
 standard output or even a custom spdlog sink.
 
 # Data Types
