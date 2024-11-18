@@ -390,6 +390,8 @@ ConfigureTest(
 
 # ##################################################################################################
 # * utilities tests -------------------------------------------------------------------------------
+#   TODO: Figure out long-term plan for getting spdlog outside the context of rapids-logger.
+include(../cmake/thirdparty/get_spdlog.cmake)
 ConfigureTest(
   UTILITIES_TEST
   utilities_tests/batched_memcpy_tests.cu
@@ -405,6 +407,7 @@ ConfigureTest(
   utilities_tests/type_check_tests.cpp
   utilities_tests/type_list_tests.cpp
 )
+target_link_libraries(UTILITIES_TEST PRIVATE spdlog::spdlog)
 
 # ##################################################################################################
 # * span tests -------------------------------------------------------------------------------
